@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Canvas!!</title>
+  <title>Document</title>
   <style>
+    img {
+      width: 300px;
+    }
     canvas {
       border: thin solid black;
     }
@@ -12,12 +15,22 @@
 </head>
 <body>
   <header>
-    <h1>Drawing on the Canvas</h1>
+    <h1>Product Survey</h1>
     <nav>
-      <a href="survey.html">Vote on Goats!</a>
+      <a href="./index.html">HTML Canvas Demo</a>
     </nav>
   </header>
-  <canvas id="myCanvas" height="300px" width="300px"></canvas>
+  <main>
+    <section id="goats">
+      <img id="image2">
+      <img id="image1">
+    </section>
+    <button id="result-button">View Results</button>
+    <button id="start-over">Clear Data</button>
+    <canvas id="myChart" height="400px" width="400px"></canvas>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/survey.js"></script>
 </body>
 </html>

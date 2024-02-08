@@ -1,18 +1,46 @@
 'use strict';
 
-console.log('I am loaded!!');
+// console.log('JS is loaded!', goats);
 
-let canvasEl = document.getElementById('myCanvas');
+let person = {
+  name: "Jacob",
+  age: 34
+}
 
-// create the context object that we can use to draw things
-let ctx = canvasEl.getContext('2d');
+// localStorage.clear(); // removes all data from localStorage BE CAREFUL WHEN YOU CLEAR YOUR DATA.
 
-ctx.fillStyle = "blue";
-ctx.fillRect(0, 50, 100, 100);
+// what does localStorage store => JSON
 
-ctx.fillStyle = "red";
-ctx.fillRect(100, 50, 100, 100);
+// localStorage.setItem('goatData', JSON.stringify(goats)); // method of the localStorage object, takes 2 arguments a key, and a value, value should be stringifies if not a primitive
 
-ctx.beginPath();
-ctx.arc(150, 100, 50, 0, 2 * Math.PI);
-ctx.stroke();
+console.log('The localStorage object', localStorage);
+
+// let stringFromStorage = localStorage.getItem('goatData'); // method for retrieving something from localStorage
+// console.log('THIS IS FRESH FROM LOCALSTORAGE', stringFromStorage);
+
+// let object = JSON.parse(stringFromStorage);
+// console.log('PARSED BACK INTO A JS OBJECT', object);
+
+// console.log('PERSON BEFORE JSONification', person);
+
+// let json = JSON.stringify(person); // returns a string using the JSON syntax
+
+// console.log('PERSON AFTER JSONIFICATION', json);
+
+// person = JSON.parse(json); // converts our JSON string back into a JS object.
+
+// global object that does JSON things
+// console.log('PERSON CONVERTED BACK TO AN OBJECT', person);
+
+
+function saveData(data) {
+  localStorage.setItem('goatData', JSON.stringify(data));
+}
+
+function fetchData() {
+  return JSON.parse(localStorage.getItem('goatData'));
+}
+
+function clearData() {
+  localStorage.clear();
+}
