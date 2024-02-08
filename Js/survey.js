@@ -4,39 +4,16 @@ console.log('I am loaded!!');
 
 const ctx = document.getElementById('myChart');
 
-// new Chart(ctx, {
-//   type: 'bar',
-//   data: {
-//     labels: ['Red', 'Blue', 'Yellow', 'Green', 'banana', 'Orange'],
-//     datasets: [{
-//       label: 'Jacob Loves Javascript',
-//       data: [17, 50, 50, 13],
-//       borderWidth: 1
-//     }, {
-//       label: 'Jacob Loves Javascript',
-//       data: [1, 2, 3, 4],
-//       borderWidth: 1
-//     }]
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// });
-
 let goats = [];
 let image1 = document.getElementById('image1');
 let image2 = document.getElementById('image2');
+let image3 = document.getElementById('image3');
 
-// constructor function -> 'this' is the object we are creating.
 function Goat(url, name) {
-  this.url = url;
-  this.name = name;
-  this.clicks = 0;
-  this.timesShown = 0;
+    this.url = url;
+    this.name = name;
+    this.clicks = 0;
+    this.timesShown = 0;
 }
 
 let goat1 = new Goat('images/cruisin-goat.jpg', 'Cruisin');
@@ -51,119 +28,115 @@ let goat9 = new Goat('images/sweater-goat.jpg', 'Sweater Goat');
 
 goats.push(goat1, goat2, goat3, goat4, goat5, goat6, goat7, goat8, goat9);
 
-// render the goat onto the page / add the name
-image1.setAttribute('src', goat1.url);
-image2.setAttribute('src', goat2.url);
-goat1.timesShown++;
-image1.setAttribute('alt', goat1.name);
-image2.setAttribute('alt', goat2.name);
-goat2.timesShown++;
+renderNewGoats();
 
-console.log(goats);
+function renderNewGoats() {
+    let indices = getRandomIndices(3);
 
+    for (let i = 0; i < indices.length; i++) {
+        let randomGoat = goats[indices[i]];
+        let imageElement = getImageElement(i + 1);
+        imageElement.setAttribute('src', randomGoat.url);
+        imageElement.setAttribute('alt', randomGoat.name);
+        randomGoat.timesShown++;
+    }
+}
 
-// add an event listener that runs some code when a goat picture is clicked.
-let goatImages = document.getElementById('goats');
+function getRandomIndices(count) {
+    let indices = [];
+    while (indices.length < count) {
+        let index = Math.floor(Math.random() * goats.length);
+        if (!indices.includes(index)) {
+            indices.push(index);
+        }
+    }
+    return indices;
+}
 
-// when might you remove the event listener from the GoatImages HTML element
-// goatImages.removeEventListener()
+function getImageElement(index) {
+    switch (index) {
+        case 1:
+            return image1;
+        case 2:
+            return image2;
+        case 3:
+            return image3;
+        default:
+            return null;
+    }
+}
 
-goatImages.addEventListener('click', function(event) {
-  event.preventDefault();
-  console.log(event.target.alt); // event.target -> whatever element was interacted with.
+let goatImages = document.querySelectorAll('.goat-image');
 
-  // add 1 to number of clicks
-    // search our array of goats for the goat object that matched the alt
-  findGoat(event.target.alt);
-
-  // show 2 different images after a picture is clicked.
-  renderNewGoats();
-  console.log(getNames());
-  console.log(getClicks());
-  console.log(getViews());
+goatImages.forEach(image => {
+    image.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log(event.target.alt);
+        findGoat(event.target.alt);
+        renderNewGoats();
+        console.log(getNames());
+        console.log(getClicks());
+        console.log(getViews());
+    });
 });
 
 function findGoat(alt) {
-  for (let i =0; i< goats.length; i++) {
-    if (goats[i].name === alt) {
-      goats[i].clicks++;
+    for (let i = 0; i < goats.length; i++) {
+        if (goats[i].name === alt) {
+            goats[i].clicks++;
+        }
     }
-  }
-  console.log(goats);
+    console.log(goats);
 }
 
-function renderNewGoats() {
-  // generate a random index betwee 0 and the length of our goats array
-  let index1 = Math.floor(Math.random() * goats.length);
-  let index2 = Math.floor(Math.random() * goats.length);
-  while(index1 === index2) {
-    index1 = Math.floor(Math.random() * goats.length);
-    index2 = Math.floor(Math.random() * goats.length);
-  }
-  let randomGoat1 = goats[index1];
-  let randomGoat2 = goats[index2];
-  console.log(randomGoat1.name, randomGoat2.name, image1.alt, image2.alt);
-
-  // render the goat onto the page / add the name
-  image1.setAttribute('src', randomGoat1.url);
-  image2.setAttribute('src', randomGoat2.url);
-  randomGoat1.timesShown++;
-  image1.setAttribute('alt', randomGoat1.name);
-  image2.setAttribute('alt', randomGoat2.name);
-  randomGoat2.timesShown++;
-}
-
-// get an array of all timesShown from the goats array.
 function getNames() {
-  let names = [];
-  for (let i = 0; i < goats.length; i++) {
-    names.push(goats[i].name)
-  }
-  return names;
+    let names = [];
+    for (let i = 0; i < goats.length; i++) {
+        names.push(goats[i].name)
+    }
+    return names;
 }
 
-// get an array of all timesClicked from the goats array.
 function getClicks() {
-  let clicks = [];
-  for (let i = 0; i < goats.length; i++) {
-    clicks.push(goats[i].clicks);
-  }
-  return clicks;
+    let clicks = [];
+    for (let i = 0; i < goats.length; i++) {
+        clicks.push(goats[i].clicks);
+    }
+    return clicks;
 }
 
-// get an array of all goat names from the goats array.
 function getViews() {
-  let views = [];
-  for (let i = 0; i < goats.length; i++) {
-    views.push(goats[i].timesShown);
-  }
-  return views;
+    let views = [];
+    for (let i = 0; i < goats.length; i++) {
+        views.push(goats[i].timesShown);
+    }
+    return views;
 }
 
 let button = document.getElementById('result-button');
 button.addEventListener('click', viewChart);
 
 function viewChart() {
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: getNames(),
-      datasets: [{
-        label: '# of Clicks',
-        data: getClicks(),
-        borderWidth: 1
-      }, {
-        label: '# of Views',
-        data: getViews(),
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: getNames(),
+            datasets: [{
+                label: '# of Clicks',
+                data: getClicks(),
+                borderWidth: 1
+            }, {
+                label: '# of Views',
+                data: getViews(),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-      }
-    }
-  });
+    });
 }
