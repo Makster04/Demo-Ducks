@@ -6,30 +6,6 @@ clearButton.addEventListener('click', function () {
   clearData();
 });
 
-
-// new Chart(ctx, {
-//   type: 'bar',
-//   data: {
-//     labels: ['Red', 'Blue', 'Yellow', 'Green', 'banana', 'Orange'],
-//     datasets: [{
-//       label: 'Jacob Loves Javascript',
-//       data: [17, 50, 50, 13],
-//       borderWidth: 1
-//     }, {
-//       label: 'Jacob Loves Javascript',
-//       data: [1, 2, 3, 4],
-//       borderWidth: 1
-//     }]
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// });
-
 let dataFromStorage = fetchData();
 console.log('here is our data', dataFromStorage);
 let goats = [];
